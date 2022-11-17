@@ -14,9 +14,8 @@ def pregunta_01():
     En este punto se realiza la lectura de conjuntos de datos.
     Complete el código presentado a continuación.
     """
-    "esto es un prueba"
     # Lea el archivo `gm_2008_region.csv` y asignelo al DataFrame `df`
-    df = pd.read_csv('gm_2008_region.csv', sep=',', thousands=None, decimal='.',)
+    df = pd.read_csv('gm_2008_region.csv', sep=',', thousands=None, decimal='.')
 
     # Asigne la columna "life" a `y` y la columna "fertility" a `X`
     y = df['life'].values
@@ -118,10 +117,10 @@ def pregunta_04():
     from sklearn.metrics import mean_squared_error
 
     # Lea el archivo `gm_2008_region.csv` y asignelo al DataFrame `df`
-    df = pd.read_csv('gm_2008_region.csv',sep=',',thousands=None, decimal='.',)
+    df = pd.read_csv('gm_2008_region.csv',sep=',',thousands=None, decimal='.')
 
     # Asigne a la variable los valores de la columna `fertility`
-    X_fertility = df['fertility']
+    X_fertility = df['fertility'].values.reshape(-1,1)
 
     # Asigne a la variable los valores de la columna `life`
     y_life = df['life']
@@ -129,8 +128,8 @@ def pregunta_04():
     # Divida los datos de entrenamiento y prueba. La semilla del generador de números
     # aleatorios es 53. El tamaño de la muestra de entrenamiento es del 80%
     (X_train, X_test, y_train, y_test,) = train_test_split(
-        X_fertility.values.reshape(-1,1),
-        y_life.values.reshape(-1,1),
+        X_fertility,
+        y_life,
         test_size=0.8,
         random_state=53,
     )
@@ -146,5 +145,5 @@ def pregunta_04():
 
     # Compute and print R^2 and RMSE
     print("R^2: {:6.4f}".format(linearRegression.score(X_test, y_test)))
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+    rmse = np.sqrt(mean_squared_error(y_test,y_pred))
     print("Root Mean Squared Error: {:6.4f}".format(rmse))
